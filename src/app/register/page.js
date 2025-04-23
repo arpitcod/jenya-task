@@ -1,8 +1,12 @@
 "use client";
+import { setUserData } from "@/redux/userSlice";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+
 const RegisterPage = () => {
   const [user, setUser] = useState({
     username: "",
@@ -10,25 +14,36 @@ const RegisterPage = () => {
     password: "",
   });
 
+  const disPatch = useDispatch()
+  const router = useRouter()
+
+  // submit data 
   const handleSubmit = (e) => {
     e.preventDefault();
+    alert("register success")
+    // disPatch(setUserData(user))
+    router.push("/login")
     console.log(user);
   };
+
+  // onchange 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
   };
+
+  //  show passs 
   const [showPass,setShowPass] = useState(false)
   const handleShowPass = () =>{
     setShowPass(!showPass)
   }
   return (
-    <div className="border h-screen flex items-center justify-center bg-gray-100">
+    <div className="border h-screen flex items-center justify-center bg-gray-100 p-2">
       <form
         className="border p-5 w-[500px] rounded-md bg-white shadow-lg"
         onSubmit={handleSubmit}
       >
-        <p className="font-medium text-3xl text-center py-2">Register</p>
+        <p className="font-medium text-3xl text-center py-2">Register</p> 
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <label>Username</label>
